@@ -1,0 +1,22 @@
+#menu {
+  margin-top: 100px;
+  width: 250px;
+}
+
+#menu li {
+  list-style: none;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+}
+
+ul {
+  float:left;
+  margin: 10px;
+}
+
+#price {
+  float:right;
+}

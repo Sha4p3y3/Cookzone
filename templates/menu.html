@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/menu.css') }}" />
+{% endblock %}
+
+{% block content %}
+  <main>
+    {% for item in items %}
+    <ul id="menu">
+        <li><img src="/static/images/food/balushahi.jpg"></li>
+        <li>{{ item[0] }} <span id="price">Rs. {{ item[1] }}</span></li>
+    </ul>
+    {% endfor %}
+    </main>
+  
+{% endblock %}
+{% block footer %} {% endblock %}
