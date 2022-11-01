@@ -3,7 +3,7 @@ from init_db import db_connection
 
 app = Flask(__name__)
 try:
-    cursor, connection = db_connection(r"./databases/menu.db")
+    cursor, connection = db_connection(r"./databases/database.db")
     cursor.execute("""SELECT ItemType, Ingredients, Description, course, flavour, Price FROM menu;""")
     menu_items = cursor.fetchall()
     cursor.close()
