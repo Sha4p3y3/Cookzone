@@ -21,6 +21,14 @@
               padding: 20px; 
               color: green;
             }
+            .right {
+              float:left;
+            }
+
+            #clear {
+              clear:both;
+            }
+            }
            {% endblock %}
         </style>
     </head>
@@ -32,10 +40,11 @@
     <a href="{{ url_for('index') }}" class="w3-bar-item w3-button">MENU</a>
     <a href="{{ url_for('index') }}" class="w3-bar-item w3-button">ABOUT</a>
     <a href="{{ url_for('index') }}" class="w3-bar-item w3-button">CONTACT</a>
-    <a href="{{ url_for('login') }}" class="w3-bar-item w3-button">LOGIN\REGISTER</a>
-    <input type="submit" form="checkout" value="CHECKOUT" class="w3-bar-item w3-button">
+    <a href="{{ url_for('login') }}" class="w3-bar-item w3-button right">LOGIN\REGISTER</a>
+    <input type="submit" form="checkout" value="CHECKOUT" class="w3-bar-item w3-button right">
   </div>
 </div>
+<div id="clear"></div>
 {% block content %}  
 <!-- Header with image -->
 <header class="bgimg w3-display-container w3-grayscale-min" id="home">

@@ -84,8 +84,7 @@ def checkout():
     if request.method == 'POST':
         for item, value in request.form.items():
             checkout.append(item)
-        print(checkout)
-        return redirect(url_for('billing'))
+        return redirect(url_for('billing', cart=checkout))
     return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Checked out</h1></html>"
 
 @app.route('/feedback')
@@ -94,7 +93,10 @@ def feedback():
 
 @app.route('/billing', methods=['GET', 'POST'])
 def billing():
-    return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Billing Page</h1></html>"
+    if request.method == 'GET':
+        print(request.args['cart'])
+    return render_template('billing.html')
+    # return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Billing Page</h1></html>"
 
 if __name__ == "__main__":
     app.run(debug=True)
