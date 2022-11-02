@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from init_db import db_connection
-from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
@@ -20,7 +20,26 @@ def index():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')
+    
+    if request.method == 'POST':
+        fName = request.form['fname']
+        lName = request.form['lname']
+        sEmail = request.form['email']
+        phone = request.form['phoneNum']
+        sPwd = request.form['pwd'] 
+
+        try:
+            cursor, connection = db_connection(r"./databases/database.db")
+            cursor.execute("""INSERT INTO customer('Name','Email','pwdhash','phone_number')) VALUES (?,?,?,?)""", (fname+lname, sEmail, generate_password_hash(sPwd), phone))
+            connection.commit()
+            cursor.close()
+            connection.close()
+        except:
+            print("Database connection error")
+
+        return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>User Registered</h1></html>"
+    else:
+        return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
