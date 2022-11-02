@@ -82,11 +82,9 @@ def login():
 def checkout():
     checkout = []
     if request.method == 'POST':
-        for item, value in request.form.items():
-            checkout.append(item)
-        print(checkout)
-        return redirect(url_for('billing'))
-    return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Checked out</h1></html>"
+        return redirect(url_for('billing'), code=307)
+    else:
+        return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Cart if empty !</h1></html>"
 
 @app.route('/feedback')
 def feedback():
@@ -94,10 +92,28 @@ def feedback():
 
 @app.route('/billing', methods=['GET', 'POST'])
 def billing():
-    # if request.method == 'GET':
-    #     print(request.args['cart'])
-    return render_template('billing.html')
-    # return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Billing Page</h1></html>"
+
+    if request.method == 'POST':
+
+        temp = []
+        checkout = []
+        for item, value in request.form.items():
+            checkout.append(item)
+        try:
+            connection = connect(r"./databases/database.db")
+            cursor = connection.cursor()
+            for index, item in enumerate(checkout):
+                cursor.execute("""SELECT Price FROM menu where ItemType =?;""", (item,))
+                temp.append((index, item, cursor.fetchall()[0][0]))
+            return render_template('billing.html', checked_out = temp)
+        except (IntegrityError, ) as e:
+            print("Exception: ", repr(e))
+            return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Database error</h1></html>"
+        finally:
+            cursor.close()
+            connection.close() 
+    else:
+        return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Billing Page error</h1></html>"
 
 if __name__ == "__main__":
     app.run(debug=True)
