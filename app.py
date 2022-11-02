@@ -36,10 +36,12 @@ def login():
             connection.close()
         except:
             print("Database connection error")
+        user = {}
+        for i, n in enumerate(users_list):
+            user[users_list[i][1].lower()] = users_list[i][2]
 
         # Check the password hash of the user in database
-        print(pwd)
-        if check_password_hash(users_list[2][2], pwd):
+        if (email.lower() in user) and (user[email.lower()], pwd):
             return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Logged in</h1></html>"
         else:
             return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>wrong password</h1></html>"

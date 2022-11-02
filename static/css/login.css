@@ -8,6 +8,11 @@ fieldset{
     padding: 20px;
 }
 
+body {
+    color: white;
+    background-color: black;
+}
+
 input {
     margin: 10px;
 }
