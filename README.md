@@ -2,7 +2,7 @@
 
 A Bits Pilani - WILP project
 
-`Subject:` Database design and Applications
+**Subject:** Database design and Applications
 
 Group BF
 
