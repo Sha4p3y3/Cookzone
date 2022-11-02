@@ -13,3 +13,17 @@ The project aims to provide an intuitive and efficient interface for the custome
 ### Domain
 
 The proposed project aims at providing a digital solution to the restaurant for all their operations. The large domain will result in an equally large scope of development. So, we narrow our case study/project for a small restaurant named Cookzone to manage its own small restaurant with few basic functionalities. 
+
+### Team Members
+
+|Team Member|
+|RONI RENGIT|
+|JEEVITHA S|	 
+|RESHMI BISWAS|
+|VIDUSHI SOOD|	 
+|BIRENDER NATH SHARMA|
+|SANTHOSH KUSUMA| 
+|GOVIND KARMAKAR|
+|BINDU KUMARI S|
+|KHANDELWAL KRISHNKUMAR RAMPRATAP|
+|BANDI LEKHANA|
