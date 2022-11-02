@@ -1,7 +1,5 @@
 #form {
     width: 40%;
-    margin: auto;
-    margin-top: 10%;
 }
 
 fieldset{
@@ -13,20 +11,21 @@ body {
     background-color: black;
 }
 
-input {
+.reg {
+    width: 40%;
     margin: 10px;
-}
+} 
+
 .button {
-    font-family: arial;
+    font-family: arial, sans-serif;
     padding: 10px;
+    background-color: red;
 }
 
-body, html {height: 100%}
-body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif}
-.menu {display: none}
-.bgimg {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: url('./static/images/food_wallpaper.jpg'); 
-    min-height: 90%;
+button {
+    background-color: red;
+    padding: 10px;
 }
+body, html {height: 100%}
+
+body{font-family: sans-serif}

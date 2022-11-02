@@ -5,15 +5,15 @@
 {% endblock %}
 <body class="bgimg">
 {% block content %}
-    <div id="form" class="w3-container w3-content">
+    <div id="form" class="w3-container w3-content w3-display-middle">
     <formlabel>
         <form action="/login" method="POST" id="login">
             <fieldset>
                 <h1>Login</h1>
                 <label for="email">Email Address:</label>
-                <input type="email" name="email" placeholder="Enter Email Address"></label><br>
+                <input type="email" name="email" placeholder="Enter Email Address" class="reg"></label><br>
                 <label for="password">Password:</label>
-                <input type="password" name="pwd" placeholder="Enter password"><br>
+                <input type="password" name="pwd" placeholder="Enter password" class="reg"><br>
                 <input type="submit" value="Login" class="button">
                 <button type="submit" form="login" formmethod="get" onClick="javascript:window.open('/register', '_blank')">Sign Up\Register</button>
             </fieldset>
