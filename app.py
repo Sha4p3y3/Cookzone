@@ -20,22 +20,22 @@ def index():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    
+
     if request.method == 'POST':
         fName = request.form['fname']
         lName = request.form['lname']
         sEmail = request.form['email']
         phone = request.form['phoneNum']
         sPwd = request.form['pwd'] 
-
+        print(fName, lName, sEmail, phone, sPwd)
         try:
             cursor, connection = db_connection(r"./databases/database.db")
-            cursor.execute("""INSERT INTO customer('Name','Email','pwdhash','phone_number')) VALUES (?,?,?,?)""", (fname+lname, sEmail, generate_password_hash(sPwd), phone))
+            cursor.execute("""INSERT INTO customer('Name','Email','pwdhash','phone_number') VALUES (?,?,?,?);""", ( fname + " " + lname, sEmail, generate_password_hash(sPwd), phone))
             connection.commit()
             cursor.close()
             connection.close()
         except:
-            print("Database connection error")
+            return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Database connection error</h1></html>"
 
         return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>User Registered</h1></html>"
     else:
