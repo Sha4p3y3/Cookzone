@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from init_db import db_connection
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 
@@ -25,10 +25,24 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user= request.form['user']
+        email= request.form['email']
         pwd = request.form['pwd']
+
+        try:
+            cursor, connection = db_connection(r"./databases/database.db")
+            cursor.execute("""SELECT Name, Email, pwdhash FROM customer;""")
+            users_list = cursor.fetchall()
+            cursor.close()
+            connection.close()
+        except:
+            print("Database connection error")
+
         # Check the password hash of the user in database
-        return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Logged in</h1></html>"
+        print(pwd)
+        if check_password_hash(users_list[2][2], pwd):
+            return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Logged in</h1></html>"
+        else:
+            return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>wrong password</h1></html>"
     else:
         return render_template('login.html')
 

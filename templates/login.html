@@ -3,15 +3,15 @@
 {% block style %}
     <link rel="stylesheet" type="text/css" href=" {{ url_for('static', filename='css/login.css') }}" />
 {% endblock %}
-
+<body class="bgimg">
 {% block content %}
-    <div id="form">
+    <div id="form" class="w3-container w3-content">
     <formlabel>
         <form action="/login" method="POST">
             <fieldset>
                 <h1>Login</h1>
-                <label for="username">Username:</label>
-                <input type="text" name="username" placeholder="Enter Username"></label><br>
+                <label for="email">Username:</label>
+                <input type="email" name="email" placeholder="Enter Email Address"></label><br>
                 <label for="password">Password:</label>
                 <input type="password" name="pwd" placeholder="Enter password"><br>
                 <input type="submit" value="Login" class="button">
@@ -21,3 +21,4 @@
     </formlabel>
     </div>
 {% endblock %}
+</body>
