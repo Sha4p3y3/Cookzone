@@ -1,17 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for
-from init_db import db_connection
+from sqlite3 import connect, IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 
 try:
-    cursor, connection = db_connection(r"./databases/database.db")
+    connection = connect(r"./databases/database.db")
+    cursor = connection.cursor()
     cursor.execute("""SELECT ItemType, Ingredients, Description, course, flavour, Price FROM menu;""")
     menu_items = cursor.fetchall()
-    cursor.close()
-    connection.close()
 except:
     print("Database connection error")
+finally:
+    cursor.close()
+    connection.close()
 
 @app.route('/')
 @app.route('/index')
@@ -27,16 +30,19 @@ def register():
         sEmail = request.form['email']
         phone = request.form['phoneNum']
         sPwd = request.form['pwd'] 
-        print(fName, lName, sEmail, phone, sPwd)
         try:
-            cursor, connection = db_connection(r"./databases/database.db")
+            connection = connect(r"./databases/database.db")
+            cursor = connection.cursor()
             cursor.execute("""INSERT INTO customer('Name','Email','pwdhash','phone_number') VALUES (?,?,?,?);""", ( fName + " " + lName, sEmail, generate_password_hash(sPwd), phone))
             connection.commit()
             cursor.close()
             connection.close()
-        except:
+        except (IntegrityError, ) as e:
+            print("Exception: ", repr(e))
             return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Database connection error</h1></html>"
-
+        finally:
+            cursor.close()
+            connection.close()
         return redirect(url_for('login'))
     else:
         return render_template('register.html')
@@ -48,14 +54,16 @@ def login():
         pwd = request.form['pwd']
 
         try:
-            cursor, connection = db_connection(r"./databases/database.db")
+            connection = connect(r"./databases/database.db")
+            cursor = connection.cursor()
             cursor.execute("""SELECT Name, Email, pwdhash FROM customer;""")
             users_list = cursor.fetchall()
+        except (IntegrityError, ) as e:
+            print("Exception: ", repr(e))
+            return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Database connection error</h1></html>"
+        finally:
             cursor.close()
             connection.close()
-        except:
-            return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Database connection error</h1></html>"
-        
         user = {}
         
         for i, n in enumerate(users_list):

@@ -64,10 +64,11 @@
 
     <div id="starter" class="w3-container menu w3-padding-32 w3-white">
 
-        {% for item in items %}
+            {% for item in range(items) %}
             {% if item[3] == 'starter' %}
             <h1><b>{{ item[0] }} </b> <span class="w3-tag w3-grey w3-round">{{ item[2] }}</span><span class="w3-right w3-tag w3-dark-grey w3-round">Rs. {{ item[5] }} </span></h1>
             <p class="w3-text-grey">{{ item[1] }}</p>
+            <button id="addToCart_{{ index }}">Add to cart </button>
             <hr>
             {% endif %}
         {% endfor %}

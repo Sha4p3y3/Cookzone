@@ -17,7 +17,7 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS Menu (ItemID INTEGER PRIMARY KEY AU
 """)
 cursor.execute("""CREATE TABLE IF NOT EXISTS customer (CustID INTEGER PRIMARY KEY AUTOINCREMENT,
 						Name TEXT,
-						Email TEXT,
+						Email TEXT UNIQUE,
 						pwdhash TEXT,
 						phone_number INTEGER);""")
 
