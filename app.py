@@ -37,7 +37,7 @@ def register():
         except:
             return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Database connection error</h1></html>"
 
-        return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>User Registered</h1></html>"
+        return redirect(url_for('login'))
     else:
         return render_template('register.html')
 
