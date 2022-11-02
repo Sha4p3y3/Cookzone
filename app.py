@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from init_db import db_connection
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -30,7 +30,7 @@ def register():
         print(fName, lName, sEmail, phone, sPwd)
         try:
             cursor, connection = db_connection(r"./databases/database.db")
-            cursor.execute("""INSERT INTO customer('Name','Email','pwdhash','phone_number') VALUES (?,?,?,?);""", ( fname + " " + lname, sEmail, generate_password_hash(sPwd), phone))
+            cursor.execute("""INSERT INTO customer('Name','Email','pwdhash','phone_number') VALUES (?,?,?,?);""", ( fName + " " + lName, sEmail, generate_password_hash(sPwd), phone))
             connection.commit()
             cursor.close()
             connection.close()
@@ -54,14 +54,16 @@ def login():
             cursor.close()
             connection.close()
         except:
-            print("Database connection error")
+            return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Database connection error</h1></html>"
+        
         user = {}
+        
         for i, n in enumerate(users_list):
             user[users_list[i][1].lower()] = users_list[i][2]
 
         # Check the password hash of the user in database
         if (email.lower() in user) and (user[email.lower()], pwd):
-            return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>Logged in</h1></html>"
+            return redirect(url_for('index'))
         else:
             return "<!Doctype html><html lang='en'><head><title>Test</title></head><body></body><h1>wrong password</h1></html>"
     else:
