@@ -90,13 +90,14 @@ def checkout():
 def feedback():
     return render_template('feedback.html')
 
-@app.route('/billing', methods=['GET', 'POST'])
+@app.route('/billing', methods=['POST'])
 def billing():
 
     if request.method == 'POST':
 
         temp = []
         checkout = []
+        
         for item, value in request.form.items():
             checkout.append(item)
         try:
