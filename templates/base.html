@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" >
+        {%block style %}
         <style>
             body, html {height: 100%}
             body,h1,h2,h3,h4,h5,h6 {font-family: sans-serif}
@@ -15,7 +16,12 @@
                 background-image: url('./static/images/food_wallpaper.jpg'); 
                 min-height: 90%;
             }
-          {%block style %} {% endblock %}
+
+            .cart {
+              padding: 20px; 
+              color: green;
+            }
+           {% endblock %}
         </style>
     </head>
 <body>
@@ -27,6 +33,7 @@
     <a href="{{ url_for('index') }}" class="w3-bar-item w3-button">ABOUT</a>
     <a href="{{ url_for('index') }}" class="w3-bar-item w3-button">CONTACT</a>
     <a href="{{ url_for('login') }}" class="w3-bar-item w3-button">LOGIN\REGISTER</a>
+    <input type="submit" form="checkout" value="CHECKOUT" class="w3-bar-item w3-button">
   </div>
 </div>
 {% block content %}  
@@ -43,6 +50,7 @@
 </header>
 
 <!-- Menu Container -->
+
 <div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">
   <div class="w3-content">
   
@@ -61,14 +69,14 @@
         <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Dessert</div>
       </a>
     </div>
-
+    <form  action='/checkout' method="POST" id="checkout">
     <div id="starter" class="w3-container menu w3-padding-32 w3-white">
 
             {% for item in range(items| length) %}
             {% if items[item][3] == 'starter' %}
             <h1><b>{{ items[item][0] }} </b> <span class="w3-tag w3-grey w3-round">{{ items[item][2] }}</span><span class="w3-right w3-tag w3-dark-grey w3-round">Rs. {{ items[item][5] }} </span></h1>
             <p class="w3-text-grey">{{ items[item][1] }}</p>
-            <button id="addToCart_{{ item }}">Add to cart </button>
+            <input type="checkbox" id="{{ items[item][0] }}" name="{{ items[item][0] }}" ><label for="AddtoCart" class="cart">add</label>
             <hr>
             {% endif %}
         {% endfor %}
@@ -79,6 +87,7 @@
             {% if items[item][3] == 'main course' %}
             <h1><b>{{ items[item][0] }}</b> <span class="w3-tag w3-grey w3-round">{{ items[item][2] }}</span> <span class="w3-right w3-tag w3-dark-grey w3-round"> Rs. {{ items[item][5] }}</span></h1>
             <p class="w3-text-grey">{{ items[item][1] }}</p>
+            <input type="checkbox" id="{{ items[item][0] }}" name="{{ items[item][0] }}" ><label for="AddtoCart" class="cart">add</label>
             <hr>
             {% endif %}
       {% endfor %}
@@ -90,6 +99,7 @@
             {% if items[item][3] == 'snack' %}
       <h1><b>{{ items[item][0] }}</b> <span class="w3-tag w3-grey w3-round">{{ items[item][2] }}</span><span class="w3-right w3-tag w3-dark-grey w3-round"> Rs. {{ items[item][5] }}</span></h1>
       <p class="w3-text-grey">{{ items[item][1] }}</p>
+      <input type="checkbox" id="{{ items[item][0] }}" name="{{ items[item][0] }}" ><label for="AddtoCart" class="cart">add</label>
       <hr>
       {% endif %}
       {% endfor %}
@@ -100,11 +110,12 @@
           {% if items[item][3] == 'dessert' %}
     <h1><b>{{ items[item][0] }}</b> <span class="w3-tag w3-grey w3-round">{{ items[item][2] }}</span><span class="w3-right w3-tag w3-dark-grey w3-round"> Rs. {{ items[item][5] }}</span></h1>
     <p class="w3-text-grey">{{ items[item][1] }}</p>
+    <input type="checkbox" id="{{ items[item][0] }}" name="{{ items[item][0] }}"><label for="AddtoCart" class="cart">add</label>
     <hr>
     {% endif %}
     {% endfor %}
   </div><br>
-
+</form>
   </div>
 </div>
 
