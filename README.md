@@ -17,6 +17,7 @@ The proposed project aims at providing a digital solution to the restaurant for 
 ### Team Members
 
 |Team Member|
+|-----------|
 |RONI RENGIT|
 |JEEVITHA S|	 
 |RESHMI BISWAS|
