@@ -7,7 +7,7 @@
 {% block content %}
     <div id="form" class="w3-container w3-content">
     <formlabel>
-        <form action="/login" method="POST">
+        <form action="/login" method="POST" id="login">
             <fieldset>
                 <h1>Login</h1>
                 <label for="email">Username:</label>
@@ -15,7 +15,7 @@
                 <label for="password">Password:</label>
                 <input type="password" name="pwd" placeholder="Enter password"><br>
                 <input type="submit" value="Login" class="button">
-                <a href='/register'></a><input type="submit" value="Sign Up" class="button"> </a>
+                <button type="submit" form="login" formmethod="get" onClick="javascript:window.open('/register', '_blank')">Sign Up\Register</button>
             </fieldset>
         </form>
     </formlabel>
