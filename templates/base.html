@@ -78,7 +78,7 @@
             {% if items[item][3] == 'starter' %}
             <h1><b>{{ items[item][0] }} </b> <span class="w3-tag w3-grey w3-round">{{ items[item][2] }}</span><span class="w3-right w3-tag w3-dark-grey w3-round">Rs. {{ items[item][5] }} </span></h1>
             <p class="w3-text-grey">{{ items[item][1] }}</p>
-            <input type="checkbox" id="{{ items[item][0] }}" name="{{ items[item][0] }}" ><label for="AddtoCart" class="cart">add</label>
+            <input type="checkbox" class="largerCheckbox" id="{{ items[item][0] }}" name="{{ items[item][0] }}" ><label for="AddtoCart" class="cart">add</label>
             <hr>
             {% endif %}
         {% endfor %}
