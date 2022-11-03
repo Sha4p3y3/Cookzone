@@ -104,7 +104,8 @@ def billing():
         temp = []
         checkout = []
         total = 0
-        
+        index = 0
+
         for item, value in request.form.items():
             print('item: value', item, ': ', value)
             checkout.append(item)
@@ -144,30 +145,25 @@ def accept_payment():
         try:
             connection = connect(r"./databases/database.db")
             cursor = connection.cursor()
-            custIdQuery =\
-                "SELECT CustID from customer where Email=\"{c}\"".format(
-                    c=custEmail)
-            print("Query: ", custIdQuery)
-            cursor.execute(custIdQuery)
+            # print("Query: ", custIdQuery)
+
+            cursor.execute("SELECT CustID FROM customer WHERE Email=(?)", (custEmail,))
             customerId = cursor.fetchall()
             dt = datetime.datetime.now()
             timeNow = datetime.datetime.time(dt)
+            
             # OrderID is a unique key, auto-populated
-            orderInsertQuery = "INSERT INTO Order (date, time, CustID) VALUES"\
-                "({dt}, {tn}, {ci})".format(dt=dt, tn=timeNow, ci=customerId)
+            
+            orderInsertQuery = "INSERT INTO CustOrder (OrderDate, OrderTime, CustID) VALUES ({dt}, {tn}, {ci})".format(dt=dt, tn=timeNow, ci=customerId)
             print('customerId: ', customerId)
+            
             # Insert into the Order table here...
             totalPrice = orderDetails[-1][2] # This will get the total price.
-            ordIDQuery = "SELECT OrderID from Order WHERE CustID={ID} AND"\
-                "OrderDate={OD}".format(ID=customerId, OD=dt)
-            # cursor.execute(ordIdQuery)
-            # orderId = cursor.fetchall()
-            orderId = 123 # remove this line when above line is working
-            billInsertQuery =\
-                "INSERT INTO Bill (date, time, ordID, price) VALUES"\
-                "({dt}, {tn}, {oi}, {price})".format(dt=dt, tn=timeNow,
-                                                     oi=orderId,
-                                                     price=totalPrice)
+            cursor.execute("SELECT OrderID from CustOrder WHERE CustID=(?) AND OrderDate=(?)", (customerId, dt))
+            orderId = cursor.fetchall()
+            # orderId = 123 # remove this line when above line is working
+            billInsertQuery = "INSERT INTO Bill (BillDate, BillTime, OrderID, TotalPrice) VALUES ({dt}, {tn}, {oi}, {price})".format(dt=dt, tn=timeNow, oi=orderId, price=totalPrice)
+            
             # Update bill table here...
             return render_template('orderSuccess.html', checkedItems=orderDetails)
         except (IntegrityError, ) as e:
