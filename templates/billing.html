@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/billing.css') }}" >
+{% endblock %}
+
+{% block content %}
+<div class="w3-display-middle .w3-table-all">
+<table>
+    <tr>
+        <th>S. No.</th>
+        <th>Food Item</th>
+        <th>Price (Rs.)</th>
+    </tr>
+    {% for item in range(checked_out | length)  %}
+    <tr>    
+            <td>{{ checked_out[item][0] }}</td>
+            <td>{{ checked_out[item][1] }}</td>
+            <td>{{ checked_out[item][2] }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="2">Total</td>
+        <td></td>
+    </tr>
+</table>
+
+
+{% endblock %}
+</div>
