@@ -97,6 +97,7 @@ def billing():
 
         temp = []
         checkout = []
+        price = 0
         
         for item, value in request.form.items():
             checkout.append(item)
@@ -106,7 +107,8 @@ def billing():
             for index, item in enumerate(checkout):
                 cursor.execute("""SELECT Price FROM menu where ItemType =?;""", (item,))
                 temp.append((index, item, cursor.fetchall()[0][0]))
-            return render_template('billing.html', checked_out = temp)
+                price += temp[index][2]
+            return render_template('billing.html', checked_out = temp, price=price)
         except (IntegrityError, ) as e:
             print("Exception: ", repr(e))
             return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Database error</h1></html>"
