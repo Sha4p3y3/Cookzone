@@ -35,10 +35,9 @@
                 {% endif %}
                 {% endfor %}
             </table>
-            <div class="w3-center">
-            <button width=100% class="w3-center" type="submit"
-            form="payment" value="Submit">Care to provide your feedback?</button>
-            </div>
+        </form>
+        <form  action='/feedback' method="POST" id="feedback">
+            <button type="submit" form="feedback" value="Submit">Care to give feedback!!!</button>
         </form>
   </div>
 </div>
