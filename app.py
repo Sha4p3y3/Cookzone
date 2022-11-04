@@ -19,7 +19,7 @@ except:
 finally:
     cursor.close()
     connection.close()
-
+    
 @app.route('/')
 @app.route('/index')
 def index():
@@ -39,8 +39,6 @@ def register():
             cursor = connection.cursor()
             cursor.execute("""INSERT INTO customer('Name','Email','pwdhash','phone_number') VALUES (?,?,?,?);""", ( fName + " " + lName, sEmail, generate_password_hash(sPwd), phone))
             connection.commit()
-            cursor.close()
-            connection.close()
         except (IntegrityError, ) as e:
             print("Exception: ", repr(e))
             return "<!Doctype html><html lang='en'><head><title>Cookzone</title></head><body></body><h1>Database connection error</h1></html>"
