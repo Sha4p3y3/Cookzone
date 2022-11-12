@@ -1,6 +1,6 @@
 # Cookzone - Restaurant Mangement System
 
-A Bits Pilani - WILP project
+A Bits Pilani - WILP MTech project
 
 **Subject:** Database design and Applications
 
